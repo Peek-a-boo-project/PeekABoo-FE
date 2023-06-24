@@ -1,5 +1,7 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 const containerStyle = {
   width: '100vw',
@@ -31,6 +33,19 @@ function Map() {
     setMap(null)
   }, [])
 
+  // get Facebook data
+
+  const getFBData = async ()=>{
+    const { data } = await axios.get(`${process.env.REACT_APP_FACEBOOK_API}`);
+    return data;
+  };
+
+  const {isLoading, isError, data} = useQuery('FBData',getFBData,
+  {
+    refetchOnWindowFocus: false,
+    retry: 0,
+  });
+  
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
