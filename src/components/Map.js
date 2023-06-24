@@ -38,13 +38,23 @@ function Map() {
   const getFBData = async ()=>{
     const { data } = await axios.get(`${process.env.REACT_APP_FACEBOOK_API}`);
     return data;
-  };
+  }
 
   const {isLoading, isError, data} = useQuery('FBData',getFBData,
   {
     refetchOnWindowFocus: false,
     retry: 0,
   });
+  
+  if (isLoading){
+    return <div>is loading...</div>;
+  }
+
+  if(isError){
+    return <div>Error</div>
+  }
+
+  console.log(data);
   
   return isLoaded ? (
       <GoogleMap
