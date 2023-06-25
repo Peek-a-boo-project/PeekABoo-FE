@@ -68,6 +68,10 @@ function Map() {
               position={{
                 lat:item?.place?.location?.latitude,
                 lng:item?.place?.location?.longitude,
+              }}
+              icon ={{
+                url: "/images/garbage.png",
+                scaledSize: new window.google.maps.Size(32,35),
               }}/>
             </>
           )
