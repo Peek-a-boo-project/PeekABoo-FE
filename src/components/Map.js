@@ -2,6 +2,7 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import LoadingScreen from './LoadingScreen';
 
 const containerStyle = {
   width: '100vw',
@@ -47,7 +48,7 @@ function Map() {
   });
   
   if (isLoading){
-    return <div>is loading...</div>;
+    return <LoadingScreen/>;
   }
 
   if(isError){
