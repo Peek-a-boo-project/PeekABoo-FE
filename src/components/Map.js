@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import LoadingScreen from './LoadingScreen';
 import { useState } from 'react';
+import { MarkerF } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100vw',
@@ -51,8 +52,6 @@ function Map() {
     return <div>Error</div>
   }
 
-  console.log(data);
-  
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -61,8 +60,18 @@ function Map() {
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
+        {data.map((item) => {
+          return (
+            <>
+              <MarkerF 
+              key={item.id}
+              position={{
+                lat:item?.place?.location?.latitude,
+                lng:item?.place?.location?.longitude,
+              }}/>
+            </>
+          )
+        })}
       </GoogleMap>
   ) : <></>
 }
